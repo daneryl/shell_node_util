@@ -20,11 +20,11 @@ _node_version() {
 _find_file_upwards() {
   local LOOK=${PWD%/}
   while [[ -n $LOOK ]]; do
-    [[ -f $LOOK/$2 ]] && {
-      break
-    }
     [[ -f $LOOK/$1 ]] && {
       echo $LOOK/$1
+    }
+    [[ -f $LOOK/$2 ]] && {
+      break
     }
     LOOK=${LOOK%/*}
   done
