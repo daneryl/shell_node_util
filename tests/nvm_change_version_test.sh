@@ -26,6 +26,14 @@ test_nvm_is_called_when_nvmrc_upwards() {
   assertEquals "use" "$nvm_params"
 }
 
+test_nvmrc_upwards_check_should_stop_when_finding_a_packagejson() {
+  cd ./fixtures/with_nvmrc/subfolder/subproject
+  nvm_switch_node_version
+  cd ../../../..
+
+  assertNull "$nvm_params"
+}
+
 test_nvm_is_not_called_when_node_version_matches_nvmrc() {
   node() {
     echo "node_version"
