@@ -2,20 +2,8 @@
 _node_version() {
   local GREEN="\033[1;32m"
   local NOCOLOR="\033[0m"
-  echo "${GREEN}⬢ $(node --version 2>/dev/null)${NOCOLOR} "
+  echo "%{$GREEN%}⬢ $(node --version)%{$reset_color%} "
 }
-
-# _file_exists_upwards() {
-#   local LOOK=${PWD%/}
-#   while [[ -n $LOOK ]]; do
-#     [[ -e $LOOK/$1 ]] && {
-#       return 0
-#     }
-#     LOOK=${LOOK%/*}
-#   done
-
-#   return 1
-# }
 
 _find_file_upwards() {
   local LOOK=${PWD%/}
