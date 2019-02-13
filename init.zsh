@@ -27,11 +27,28 @@ show_node_version_on_node_project() {
   fi
 }
 
+_is_system_node() {
+  local node_path;
+  node_path=$(which node)
+  if [[ $node_path == *".nvm"* ]]; then
+    echo 0
+  else
+    echo 1
+  fi
+}
+
 nvm_switch_node_version() {
   local nvmrc_path;
+  local package_path;
   nvmrc_path=$(_find_file_upwards ".nvmrc" "package.json")
+  package_path=$(_find_file_upwards "package.json")
   if [[ ! -z "$nvmrc_path" && $(< "$nvmrc_path") != $(node --version) ]]
   then
     nvm use
+  fi
+
+  if [[ $(_is_system_node) -eq 0 && -z "$nvmrc_path" && ! -z "$package_path" ]]
+  then
+    nvm use system
   fi
 }
