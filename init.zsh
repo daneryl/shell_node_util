@@ -11,7 +11,7 @@ _find_file_upwards() {
     [[ -f $LOOK/$1 ]] && {
       echo $LOOK/$1
     }
-    [[ -f $LOOK/$2 ]] && {
+    [[ -f $LOOK/$1 ]] && {
       break
     }
     LOOK=${LOOK%/*}
@@ -40,7 +40,7 @@ _is_system_node() {
 nvm_switch_node_version() {
   local nvmrc_path;
   local package_path;
-  nvmrc_path=$(_find_file_upwards ".nvmrc" "package.json")
+  nvmrc_path=$(_find_file_upwards ".nvmrc")
   package_path=$(_find_file_upwards "package.json")
   if [[ ! -z "$nvmrc_path" && $(< "$nvmrc_path") != $(node --version) ]]
   then

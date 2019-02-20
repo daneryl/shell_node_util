@@ -1,9 +1,17 @@
 #!/bin/sh
 
+BASEDIR=$(pwd)
+setUp() {
+  outputDir="${SHUNIT_TMPDIR}/output"
+  mkdir "${outputDir}"
+  stdoutF="${outputDir}/stdout"
+  stderrF="${outputDir}/stderr"
+  cd $BASEDIR
+}
+
 test_version_printed_on_folder_with_packageJson() {
   cd ./fixtures/with_package
   show_node_version_on_node_project >${stdoutF} 2>${stderrF}
-  cd ../../
 
   assertEquals 'node_version' "`cat ${stdoutF}`"
   assertEquals '' "`cat ${stderrF}`"
@@ -12,7 +20,6 @@ test_version_printed_on_folder_with_packageJson() {
 test_version_printed_on_sub_folder_with_packageJson() {
   cd ./fixtures/with_package/subFolder
   show_node_version_on_node_project >${stdoutF} 2>${stderrF}
-  cd ../../..
 
   assertEquals 'node_version' "`cat ${stdoutF}`"
   assertEquals '' "`cat ${stderrF}`"
@@ -21,7 +28,6 @@ test_version_printed_on_sub_folder_with_packageJson() {
 test_version_printed_on_sub_sub_folder_with_packageJson() {
   cd ./fixtures/with_package/subFolder/subFolder2
   show_node_version_on_node_project >${stdoutF} 2>${stderrF}
-  cd ../../../..
 
   assertEquals 'node_version' "`cat ${stdoutF}`"
   assertEquals '' "`cat ${stderrF}`"
@@ -30,17 +36,9 @@ test_version_printed_on_sub_sub_folder_with_packageJson() {
 test_version_not_printed_on_folder_with_out_packageJson() {
   cd ./fixtures/without_package
   show_node_version_on_node_project >${stdoutF} 2>${stderrF}
-  cd ../../
 
   assertEquals '' "`cat ${stdoutF}`"
   assertEquals '' "`cat ${stderrF}`"
-}
-
-setUp() {
-  outputDir="${SHUNIT_TMPDIR}/output"
-  mkdir "${outputDir}"
-  stdoutF="${outputDir}/stdout"
-  stderrF="${outputDir}/stderr"
 }
 
 tearDown() {
