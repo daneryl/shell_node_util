@@ -63,7 +63,7 @@ tearDown() {
 
 . ../init.zsh
 
-nvm() { 
+fnm() {
   nvm_params="$@"
 }
 
