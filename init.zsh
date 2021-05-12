@@ -2,7 +2,7 @@
 _node_version() {
   local GREEN="\033[1;32m"
   local NOCOLOR="\033[0m"
-  echo "%{$GREEN%}⬢ $(node --version)%{$reset_color%} "
+  echo "%{$GREEN%} $(node --version)%{$reset_color%} "
 }
 
 _find_file_upwards() {
